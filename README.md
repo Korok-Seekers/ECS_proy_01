@@ -1,8 +1,9 @@
-# PLANTILLA PROYECTO - SEMANA 04
+# Proyecto 01
 
-Esta plantilla contiene la estructura básica para comenzar los video-series de la semana 3 de "Introducción al desarrollo de videojuegos con ECS"
+## Integrantes
+* Daniel Aguilera
+* Leandro Yara
+* William Mendez
 
-# Link del proyecto en itch 01
-
-https://daniagui12.itch.io/asteroid-galaxy
+# Link del proyecto en itch
 
