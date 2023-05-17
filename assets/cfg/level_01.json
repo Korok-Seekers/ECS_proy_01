@@ -1,0 +1,326 @@
+{
+    "player_spawn": {
+        "position": {
+            "x": 120,
+            "y": 200
+        },
+        "max_bullets": 1
+    },
+    "enemy_spawn": [
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 64,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 76.8,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 89.6,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 102.4,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 115.2,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 128,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 140.8,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 153.6,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 166.4,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 179.2,
+                "y": 120
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 64,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 76.8,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 89.6,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 102.4,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 115.2,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 128,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 140.8,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 153.6,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 166.4,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 64,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 76.8,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 89.6,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 102.4,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 115.2,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 128,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 140.8,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 153.6,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 166.4,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
+                "x": 179.2,
+                "y": 96
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 76.8,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 89.6,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 102.4,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 115.2,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 128,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 140.8,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 153.6,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader2",
+            "position": {
+                "x": 166.4,
+                "y": 84
+            }
+        },
+        {
+            "enemy_type": "Invader3",
+            "position": {
+                "x": 89.6,
+                "y": 72
+            }
+        },
+        {
+            "enemy_type": "Invader3",
+            "position": {
+                "x": 102.4,
+                "y": 72
+            }
+        },
+        {
+            "enemy_type": "Invader3",
+            "position": {
+                "x": 115.2,
+                "y": 72
+            }
+        },
+        {
+            "enemy_type": "Invader3",
+            "position": {
+                "x": 128,
+                "y": 72
+            }
+        },
+        {
+            "enemy_type": "Invader3",
+            "position": {
+                "x": 140.8,
+                "y": 72
+            }
+        },
+        {
+            "enemy_type": "Invader3",
+            "position": {
+                "x": 153.6,
+                "y": 72
+            }
+        },
+        {
+            "enemy_type": "Invader4",
+            "position": {
+                "x": 102.4,
+                "y": 60
+            }
+        },
+        {
+            "enemy_type": "Invader4",
+            "position": {
+                "x": 140.8,
+                "y": 60
+            }
+        }
+    ]
+}

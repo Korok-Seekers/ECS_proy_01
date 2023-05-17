@@ -64,10 +64,16 @@ class GameEngine:
             self.level_01_cfg = json.load(level_01_file)
         with open("assets/cfg/player.json") as player_file:
             self.player_cfg = json.load(player_file)
-        with open("assets/cfg/bullet.json") as bullet_file:
-            self.bullet_cfg = json.load(bullet_file)
-        with open("assets/cfg/explosion.json") as explosion_file:
-            self.explosion_cfg = json.load(explosion_file)
+        with open("assets/cfg/player_bullet.json") as player_bullet_file:
+            self.player_bullet_cfg = json.load(player_bullet_file)
+        with open("assets/cfg/enemy_bullet.json") as enemy_bullet_file:
+            self.enemy_bullet_cfg = json.load(enemy_bullet_file)
+        with open("assets/cfg/player_explosion.json") as player_explosion_file:
+            self.player_explosion_cfg = json.load(player_explosion_file)
+        with open("assets/cfg/enemy_explosion.json") as enemy_explosion_file:
+            self.enemy_explosion_cfg = json.load(enemy_explosion_file)
+        with open("assets/cfg/interfaces.json") as interface_file:
+            self.interface_cfg = json.load(interface_file)
 
     async def run(self) -> None:
         # system_instruction_show(self.screen)
@@ -114,9 +120,9 @@ class GameEngine:
         system_screen_player(self.ecs_world, self.screen)
         system_screen_bullet(self.ecs_world, self.screen)
 
-        system_collision_enemy_bullet(self.ecs_world, self.explosion_cfg)
+        system_collision_enemy_bullet(self.ecs_world, self.enemy_explosion_cfg)
         system_collision_player_enemy(self.ecs_world, self.player_entity,
-                                      self.level_01_cfg, self.explosion_cfg)
+                                      self.level_01_cfg, self.player_explosion_cfg)
 
         system_explosion_kill(self.ecs_world)
 
@@ -148,25 +154,15 @@ class GameEngine:
                 self.player_c_v.vel.x += self.player_cfg["input_velocity"]
             elif c_input.phase == CommandPhase.END:
                 self.player_c_v.vel.x -= self.player_cfg["input_velocity"]
-        if c_input.name == "PLAYER_UP":
-            if c_input.phase == CommandPhase.START:
-                self.player_c_v.vel.y -= self.player_cfg["input_velocity"]
-            elif c_input.phase == CommandPhase.END:
-                self.player_c_v.vel.y += self.player_cfg["input_velocity"]
-        if c_input.name == "PLAYER_DOWN":
-            if c_input.phase == CommandPhase.START:
-                self.player_c_v.vel.y += self.player_cfg["input_velocity"]
-            elif c_input.phase == CommandPhase.END:
-                self.player_c_v.vel.y -= self.player_cfg["input_velocity"]
 
         if c_input.name == "PLAYER_FIRE" and self.num_bullets < self.level_01_cfg["player_spawn"]["max_bullets"]:
             c_player_w = self.ecs_world.component_for_entity(self.player_entity, CPlayerWeapon)
             if c_player_w.weapon == "basic":
                 create_bullet(self.ecs_world, c_input.mouse_pos, self.player_c_t.pos,
-                            self.player_c_s.area.size, self.bullet_cfg)
+                            self.player_c_s.area.size, self.player_bullet_cfg)
             else:
                 create_multiple_bullets(self.ecs_world, c_input.mouse_pos, self.player_c_t.pos,
-                            self.player_c_s.area.size, self.bullet_cfg)
+                            self.player_c_s.area.size, self.player_bullet_cfg)
                 c_player_w.number_of_bullets += 1
                 if c_player_w.number_of_bullets >= c_player_w.max_number_of_bullets:
                     system_weapon_change(self.ecs_world, self.player_entity)

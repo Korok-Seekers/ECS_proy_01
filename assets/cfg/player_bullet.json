@@ -1,0 +1,5 @@
+{
+    "sound" : "assets/snd/player_shoot.ogg",
+    "image": "assets/img/player_bullet.png",
+    "velocity": 200
+}

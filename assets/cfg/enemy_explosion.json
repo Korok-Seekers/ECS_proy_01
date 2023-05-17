@@ -1,0 +1,15 @@
+{
+    "crash_sound": "assets/snd/enemy_die.ogg",
+    "image": "assets/img/explosion.png",
+    "animations": {
+        "number_frames": 4,
+        "list": [
+            {
+                "name": "EXPLODE",
+                "start": 0,
+                "end": 3,
+                "framerate": 16
+            }
+        ]
+    }
+}
