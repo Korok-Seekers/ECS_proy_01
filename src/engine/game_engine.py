@@ -173,5 +173,5 @@ class GameEngine:
                 self.was_paused_up = True
                 self.was_paused_rigth = True
                 self.was_paused_left = True
-            system_pause(self.ecs_world, self.interface_cfg, self.screen, self._player_entity)
+            system_pause(self.ecs_world, self.interface_cfg, self._player_entity, self.interface_cfg)
 

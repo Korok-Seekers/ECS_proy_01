@@ -5,12 +5,15 @@ from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_pause import CTagPause
+from src.engine.service_locator import ServiceLocator
 
 
-def system_pause(world: esper.World, interface_cfg: dict, screen: pygame.Surface, player_entity: int):
+def system_pause(world: esper.World, interface_cfg: dict, player_entity: int, interface_info: dict):
     components = world.get_component(CInputCommand)
     for _, c_input in components:
         if c_input.name == "PAUSE" and c_input.phase == CommandPhase.START:
+            # Play the sound
+            ServiceLocator.sounds_service.play(interface_info["pause_sound"])
             # get the pause entity with the tag and add the surface component
             component = world.get_component(CTagPause)
             for entity, c_tag in component:
@@ -36,6 +39,8 @@ def system_pause(world: esper.World, interface_cfg: dict, screen: pygame.Surface
 
 
         elif c_input.name == "PAUSE" and c_input.phase == CommandPhase.END:
+            # Play the sound
+            ServiceLocator.sounds_service.play(interface_info["unpause_sound"])
             # get the pause entity with the tag and remove the surface component
             component = world.get_component(CTagPause)
             for entity, c_tag in component:

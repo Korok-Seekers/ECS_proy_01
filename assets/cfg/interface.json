@@ -25,6 +25,8 @@
     "controls_pos": [10, 25],
     "pause": "PAUSA",
     "pause_color": [0, 187, 255],
-    "pause_font_size": 16
+    "pause_font_size": 16,
+    "pause_sound": "assets/snd/game_paused.ogg",
+    "unpause_sound": "assets/snd/game_unpaused.ogg"
 
 }
