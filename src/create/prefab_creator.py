@@ -169,7 +169,7 @@ def create_explosion(world: esper.World, pos: pygame.Vector2, explosion_info: di
     ServiceLocator.sounds_service.play(explosion_info["crash_sound"])
     return explosion_entity
 
-def create_text(world: esper.World, interface_info: dict, screen: pygame.Surface):
+def create_interface_text(world: esper.World, interface_info: dict, screen: pygame.Surface):
     font = pygame.font.Font(interface_info["font"], interface_info["font_size"])
     title_text = interface_info["title"]
     title_color_info = interface_info["title_color"]

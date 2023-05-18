@@ -27,7 +27,7 @@ from src.ecs.components.tags.c_tag_bullet import CTagBullet
 
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 
-from src.create.prefab_creator import create_enemy_spawner, create_input_player, create_player_square, create_bullet, create_text
+from src.create.prefab_creator import create_enemy_spawner, create_input_player, create_player_square, create_bullet, create_interface_text
 
 
 class GameEngine:
@@ -92,7 +92,7 @@ class GameEngine:
 
         create_enemy_spawner(self.ecs_world, self.level_01_cfg)
 
-        create_text(self.ecs_world, self.interface_cfg, self.screen)
+        create_interface_text(self.ecs_world, self.interface_cfg, self.screen)
         create_input_player(self.ecs_world)
 
     def _calculate_time(self):

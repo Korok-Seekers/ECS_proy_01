@@ -14,16 +14,16 @@ def system_enemy_spawner(world: esper.World, enemies_data: dict, delta_time: flo
             if c_spw.enemies_to_spawn == 0:
                 c_spw.done = True
                 return
-            # if c_spw.current_time >= spw_evt.time and not spw_evt.triggered:
-            spw_evt.triggered = True
-            isAnimated = True if enemies_data[spw_evt.enemy_type].get("animations") else False
-            if isAnimated:
-                create_enemy_animated(world,
-                                    spw_evt.position,
-                                    enemies_data[spw_evt.enemy_type])
-                c_spw.enemies_to_spawn -= 1
-            else:
-                create_enemy_square(world,
-                                    spw_evt.position,
-                                    enemies_data[spw_evt.enemy_type])
-                c_spw.enemies_to_spawn -= 1
+            if not spw_evt.triggered:
+                spw_evt.triggered = True
+                isAnimated = True if enemies_data[spw_evt.enemy_type].get("animations") else False
+                if isAnimated:
+                    create_enemy_animated(world,
+                                        spw_evt.position,
+                                        enemies_data[spw_evt.enemy_type])
+                    c_spw.enemies_to_spawn -= 1
+                else:
+                    create_enemy_square(world,
+                                        spw_evt.position,
+                                        enemies_data[spw_evt.enemy_type])
+                    c_spw.enemies_to_spawn -= 1
