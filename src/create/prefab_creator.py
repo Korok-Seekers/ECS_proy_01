@@ -51,7 +51,7 @@ def create_enemy_square(world: esper.World, pos: pygame.Vector2, enemy_info: dic
     # velocity = pygame.Vector2(random.choice([-vel_range, vel_range]),
     #                           random.choice([-vel_range, vel_range]))
     enemy_entity = create_sprite(world, pos, pygame.Vector2(0,0), enemy_surface)
-    world.add_component(enemy_entity, CTagEnemy("Bouncer"))
+    world.add_component(enemy_entity, CTagEnemy())
     # ServiceLocator.sounds_service.play(enemy_info["sound"])
 
 
@@ -62,7 +62,7 @@ def create_enemy_animated(world: esper.World, pos: pygame.Vector2, enemy_info: d
     world.add_component(enemy_entity, CEnemyHunterState(pos))
     world.add_component(enemy_entity,
                         CAnimation(enemy_info["animations"]))
-    # world.add_component(enemy_entity, CTagEnemy("Hunter"))
+    world.add_component(enemy_entity, CTagEnemy())
 
 
 def create_player_square(world: esper.World, player_info: dict, player_lvl_info: dict) -> int:
