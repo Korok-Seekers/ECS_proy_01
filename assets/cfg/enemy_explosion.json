@@ -1,6 +1,6 @@
 {
     "crash_sound": "assets/snd/enemy_die.ogg",
-    "image": "assets/img/explosion.png",
+    "image": "assets/img/invaders_enemy_explosion.png",
     "animations": {
         "number_frames": 4,
         "list": [

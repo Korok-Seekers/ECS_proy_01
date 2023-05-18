@@ -14,5 +14,17 @@
         "g": 144,
         "b": 255
     },
-    "high_score_max_value": 1000
+    "high_score_max_value": 1000,
+    "font": "assets/fnt/PressStart2P.ttf",
+    "font_size": 8,
+    "title": "Ejercicio 4",
+    "title_color": [255, 255, 0],
+    "title_pos": [10, 10],
+    "controls": "Moverse: ←↑↓→ | Pausa: P | Disparar: click izquierdo | asdas",
+    "controls_color": [255, 255, 255],
+    "controls_pos": [10, 25],
+    "pause": "PAUSA",
+    "pause_color": [0, 187, 255],
+    "pause_font_size": 16
+
 }

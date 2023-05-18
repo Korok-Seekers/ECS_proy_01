@@ -3,7 +3,7 @@ import asyncio
 
 async def system_instruction_show(screen: pygame.Surface):
     # Set up the font
-    font = pygame.font.Font(None, 25)
+    font = pygame.font.Font(None, 16)
 
     # Explain the user how to play, arrows for movement and right click for shooting
     text = font.render("Use the arrows to move", True, (255, 255, 255))

@@ -12,7 +12,6 @@ class CEnemySpawner:
 
 class SpawnEventData:
     def __init__(self, event_data:dict) -> None:
-        self.time:float = event_data["time"]
         self.enemy_type:str =  event_data["enemy_type"]
         self.position:pygame.Vector2 = pygame.Vector2(
             event_data["position"]["x"],
