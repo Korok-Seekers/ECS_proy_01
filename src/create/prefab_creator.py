@@ -91,23 +91,26 @@ def create_input_player(world: esper.World):
     input_right = world.create_entity()
     input_up = world.create_entity()
     input_down = world.create_entity()
+    input_bullet_time = world.create_entity()
 
     world.add_component(input_left,
-                        CInputCommand("PLAYER_LEFT", pygame.K_LEFT))
+                        CInputCommand("PLAYER_LEFT", pygame.K_LEFT, False))
     world.add_component(input_right,
-                        CInputCommand("PLAYER_RIGHT", pygame.K_RIGHT))
+                        CInputCommand("PLAYER_RIGHT", pygame.K_RIGHT, False))
     world.add_component(input_up,
-                        CInputCommand("PLAYER_UP", pygame.K_UP))
+                        CInputCommand("PLAYER_UP", pygame.K_UP, False))
     world.add_component(input_down,
-                        CInputCommand("PLAYER_DOWN", pygame.K_DOWN))
+                        CInputCommand("PLAYER_DOWN", pygame.K_DOWN, False))
+    world.add_component(input_bullet_time,
+                        CInputCommand("PLAYER_SPREAD", pygame.BUTTON_RIGHT, False))
 
     input_fire = world.create_entity()
     world.add_component(input_fire,
-                        CInputCommand("PLAYER_FIRE", pygame.BUTTON_LEFT))
+                        CInputCommand("PLAYER_FIRE", pygame.BUTTON_LEFT, False))
 
-    input_change_weapon = world.create_entity()
-    world.add_component(input_change_weapon,
-                        CInputCommand("PLAYER_CHANGE_WEAPON", pygame.BUTTON_RIGHT))
+    input_pause = world.create_entity()
+    world.add_component(input_pause,
+                        CInputCommand("PAUSE", pygame.K_p, True))
 
 
 def create_bullet(world: esper.World,

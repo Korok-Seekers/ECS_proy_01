@@ -85,14 +85,14 @@ class GameEngine:
         self._clean()
 
     def _create(self):
-        create_text(self.ecs_world, self.interface_cfg, self.screen)
-
         self._player_entity = create_player_square(self.ecs_world, self.player_cfg, self.level_01_cfg["player_spawn"])
         self._player_c_v = self.ecs_world.component_for_entity(self._player_entity, CVelocity)
         self._player_c_t = self.ecs_world.component_for_entity(self._player_entity, CTransform)
         self._player_c_s = self.ecs_world.component_for_entity(self._player_entity, CSurface)
 
         create_enemy_spawner(self.ecs_world, self.level_01_cfg)
+
+        create_text(self.ecs_world, self.interface_cfg, self.screen)
         create_input_player(self.ecs_world)
 
     def _calculate_time(self):
