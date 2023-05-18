@@ -143,6 +143,13 @@
         {
             "enemy_type": "Invader1",
             "position": {
+                "x": 179.2,
+                "y": 108
+            }
+        },
+        {
+            "enemy_type": "Invader1",
+            "position": {
                 "x": 64,
                 "y": 96
             }
