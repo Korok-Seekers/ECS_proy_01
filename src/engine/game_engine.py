@@ -2,6 +2,7 @@ import asyncio
 import json
 import pygame
 import esper
+from src.ecs.components.c_star import CStar
 from src.ecs.systems.s_animation import system_animation
 
 from src.ecs.systems.s_collision_player_enemy import system_collision_player_enemy
@@ -28,6 +29,8 @@ from src.ecs.components.tags.c_tag_bullet import CTagBullet
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 
 from src.create.prefab_creator import create_enemy_spawner, create_input_player, create_player_square, create_bullet, create_interface_text
+from src.ecs.systems.s_starfield_blink import system_starfield_blink
+from src.ecs.systems.s_starfield_loop import system_starfield_loop
 
 
 class GameEngine:
@@ -51,6 +54,7 @@ class GameEngine:
         self.ecs_world = esper.World()
 
         self.num_bullets = 0
+        self.num_stars = 0
 
     def _load_config_files(self):
         with open("assets/cfg/window.json", encoding="utf-8") as window_file:
@@ -71,6 +75,8 @@ class GameEngine:
             self.enemy_explosion_cfg = json.load(enemy_explosion_file)
         with open("assets/cfg/interface.json", encoding="utf-8") as interface_file:
             self.interface_cfg = json.load(interface_file)
+        with open("assets/cfg/starfield.json", encoding="utf-8") as starfield_file:
+            self.starfield_cfg = json.load(starfield_file)
 
     async def run(self) -> None:
         self._create()
@@ -128,9 +134,13 @@ class GameEngine:
         # system_enemy_hunter_state(self.ecs_world, self._player_entity, self.enemies_cfg["Hunter"])
 
         system_animation(self.ecs_world, self.delta_time)
+        system_starfield_blink(self.ecs_world, self.delta_time)
+        system_starfield_loop(self.ecs_world, self.starfield_cfg, self.screen, self.num_stars)
 
         self.ecs_world._clear_dead_entities()
         self.num_bullets = len(self.ecs_world.get_component(CTagBullet))
+        self.num_stars = len(self.ecs_world.get_component(CStar))
+
 
     def _draw(self):
         self.screen.fill(self.bg_color)
