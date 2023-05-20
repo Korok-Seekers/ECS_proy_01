@@ -13,6 +13,7 @@ from src.ecs.systems.s_input_player import system_input_player
 from src.ecs.systems.s_pause_blink import system_pause_blink
 from src.ecs.systems.s_movement import system_movement
 from src.ecs.systems.s_remove_life import system_remove_life
+from src.ecs.systems.s_remove_temp_text import system_remove_temp_text
 from src.ecs.systems.s_rendering import system_rendering
 from src.ecs.systems.s_pause import system_pause
 from src.ecs.systems.s_screen_bounce import system_screen_bounce
@@ -149,6 +150,7 @@ class GameEngine:
 
     def _draw(self):
         self.screen.fill(self.bg_color)
+        system_remove_temp_text(self.ecs_world, self.delta_time)
         system_pause_blink(self.ecs_world, self.delta_time, self.is_paused)
         system_rendering(self.ecs_world, self.screen)
         pygame.display.flip()

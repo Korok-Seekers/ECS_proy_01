@@ -10,6 +10,7 @@ from src.ecs.components.c_level import CLevel
 from src.ecs.components.c_lives import CLives
 from src.ecs.components.c_score import CScore
 from src.ecs.components.c_surface import CSurface
+from src.ecs.components.c_temp_text import CTempText
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.tags.c_tag_enemy import CEnemy
@@ -172,6 +173,8 @@ def create_explosion(world: esper.World, pos: pygame.Vector2, explosion_info: di
     return explosion_entity
 
 def create_interface_text(world: esper.World, interface_info: dict, screen: pygame.Surface):
+    ServiceLocator.sounds_service.play(interface_info["start_sound"])
+
     font = ServiceLocator.fonts_service.get("common")
     text_color = pygame.Color(interface_info["common_color"][0], interface_info["common_color"][1], interface_info["common_color"][2])
 
@@ -182,6 +185,16 @@ def create_interface_text(world: esper.World, interface_info: dict, screen: pyga
     title_entity = world.create_entity()
     world.add_component(title_entity, CSurface.from_text(title_text, font, title_color, heigth=2))
     world.add_component(title_entity, CTransform(title_pos))
+
+    start_text = interface_info["start_text"]
+    start_color_info = interface_info["start_text_color"]
+    start_color = pygame.Color(start_color_info[0], start_color_info[1], start_color_info[2])
+    start_font = ServiceLocator.fonts_service.get("start_text")
+    start_pos = pygame.Vector2(screen.get_width() / 2- start_font.size(start_text)[0] / 2, screen.get_height() / 2- start_font.size(start_text)[1] / 2)
+    start_entity = world.create_entity()
+    world.add_component(start_entity, CSurface.from_text(start_text, start_font, start_color, heigth=2))
+    world.add_component(start_entity, CTransform(start_pos))
+    world.add_component(start_entity, CTempText(interface_info["start_text_time"]))
 
     score_entity = world.create_entity()
     world.add_component(score_entity, CSurface.from_text("0", font, text_color, heigth=2))

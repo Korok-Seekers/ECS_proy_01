@@ -1,4 +1,10 @@
 {
+    "start_sound": "assets/snd/game_start.ogg",
+    "start_text": "READY",
+    "start_text_color": [255, 0, 0],
+    "start_text_size": 16,
+    "start_text_time": 2,
+
     "font": "assets/fnt/PressStart2P.ttf",
     "common_color": [255, 255, 255],
     "common_size": 8,
@@ -24,5 +30,12 @@
     "pause_size": 16,
 
     "pause_sound": "assets/snd/game_paused.ogg",
-    "unpause_sound": "assets/snd/game_unpaused.ogg"
+    "unpause_sound": "assets/snd/game_unpaused.ogg",
+
+    "game_over": "GAME OVER",
+    "game_over_color": [255, 0, 0],
+    "game_over_size": 16,
+    "game_over_sound": "assets/snd/game_over.ogg",
+    "game_over_time": 2
+
 }
