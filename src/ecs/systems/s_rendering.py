@@ -14,7 +14,7 @@ def system_rendering(world:esper.World, screen:pygame.Surface):
     c_t:CTransform
     c_s:CSurface
     # print("components")
-    for i in range(4):
+    for i in range(3):
         for _, (c_t, c_s) in components:
             if c_s.heigth == i:
                 # print(c_s.heigth)

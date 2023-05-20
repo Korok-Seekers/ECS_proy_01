@@ -19,7 +19,7 @@ def system_pause(world: esper.World, interface_cfg: dict, player_entity: int, in
             for entity, c_tag in component:
                 font = pygame.font.Font(interface_cfg["font"], interface_cfg["pause_font_size"])
                 color = pygame.Color(interface_cfg["pause_color"][0], interface_cfg["pause_color"][1], interface_cfg["pause_color"][2])
-                c_surface = CSurface.from_text(interface_cfg["pause"], font, color, heigth=3)
+                c_surface = CSurface.from_text(interface_cfg["pause"], font, color, heigth=2)
                 world.add_component(entity, c_surface)
 
                 # pause the game by stopping all velocity and storing them on CTagPause
