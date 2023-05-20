@@ -184,7 +184,6 @@ def create_interface_text(world: esper.World, interface_info: dict, screen: pyga
     world.add_component(title_entity, CTransform(title_pos))
 
     score_entity = world.create_entity()
-    print("score_entity", score_entity)
     world.add_component(score_entity, CSurface.from_text("0", font, text_color, heigth=2))
     world.add_component(score_entity, CTransform(interface_info["score_pos"]))
     world.add_component(score_entity, CScore())

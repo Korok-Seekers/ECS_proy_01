@@ -7,7 +7,7 @@ from src.engine.service_locator import ServiceLocator
 
 def system_add_score(world: esper.World, score: int):
     score_text_entity = world.get_components(CScore, CSurface)
-    print(score_text_entity)
+    # print(score_text_entity)
     c_score = score_text_entity[0][1][0]
     c_score.score += score
 

@@ -12,6 +12,7 @@ from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_input_player import system_input_player
 from src.ecs.systems.s_pause_blink import system_pause_blink
 from src.ecs.systems.s_movement import system_movement
+from src.ecs.systems.s_remove_life import system_remove_life
 from src.ecs.systems.s_rendering import system_rendering
 from src.ecs.systems.s_pause import system_pause
 from src.ecs.systems.s_screen_bounce import system_screen_bounce
@@ -113,6 +114,8 @@ class GameEngine:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.is_running = False
+                if event.key == pygame.K_q:
+                    system_remove_life(self.ecs_world)
 
 
 
