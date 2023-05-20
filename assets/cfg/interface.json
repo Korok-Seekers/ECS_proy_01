@@ -1,32 +1,28 @@
 {
-    "title_text_color": {
-        "r": 255,
-        "g": 0,
-        "b": 0
-    },
-    "normal_text_color": {
-        "r": 255,
-        "g": 255,
-        "b": 255
-    },
-    "high_score_color": {
-        "r": 30,
-        "g": 144,
-        "b": 255
-    },
-    "high_score_max_value": 1000,
     "font": "assets/fnt/PressStart2P.ttf",
-    "font_size": 8,
-    "title": "Ejercicio 4",
-    "title_color": [255, 255, 0],
-    "title_pos": [10, 10],
-    "controls": "Moverse: ←↑↓→ | Pausa: P | Disparar: click izquierdo | asdas",
-    "controls_color": [255, 255, 255],
-    "controls_pos": [10, 25],
-    "pause": "PAUSA",
+    "common_color": [255, 255, 255],
+    "common_size": 8,
+
+    "title": "1-UP   HI-SCORE",
+    "title_color": [255, 0, 0],
+    "title_size": 8,
+    "title_pos": [25, 5],
+
+    "high_score": "5000",
+    "high_score_color": [30, 144, 255],
+    "high_score_size": 8,
+    "high_score_pos": [81, 15],
+
+    "score_pos": [25, 15],
+
+    "lives_pos": [165, 15],
+
+    "level_pos": [200, 15],
+
+    "pause": "PAUSED",
     "pause_color": [0, 187, 255],
-    "pause_font_size": 16,
+    "pause_size": 16,
+
     "pause_sound": "assets/snd/game_paused.ogg",
     "unpause_sound": "assets/snd/game_unpaused.ogg"
-
 }

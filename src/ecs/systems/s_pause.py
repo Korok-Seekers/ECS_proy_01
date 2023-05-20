@@ -4,25 +4,24 @@ from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_velocity import CVelocity
-from src.ecs.components.tags.c_tag_pause import CTagPause
+from src.ecs.components.c_pause import CPause
 from src.engine.service_locator import ServiceLocator
 
 
-def system_pause(world: esper.World, interface_cfg: dict, player_entity: int, interface_info: dict):
+def system_pause(world: esper.World, interface_cfg: dict, player_entity: int):
     components = world.get_component(CInputCommand)
     for _, c_input in components:
         if c_input.name == "PAUSE" and c_input.phase == CommandPhase.START:
             # Play the sound
-            ServiceLocator.sounds_service.play(interface_info["pause_sound"])
+            ServiceLocator.sounds_service.play(interface_cfg["pause_sound"])
             # get the pause entity with the tag and add the surface component
-            component = world.get_component(CTagPause)
+            component = world.get_component(CPause)
             for entity, c_tag in component:
-                font = pygame.font.Font(interface_cfg["font"], interface_cfg["pause_font_size"])
-                color = pygame.Color(interface_cfg["pause_color"][0], interface_cfg["pause_color"][1], interface_cfg["pause_color"][2])
-                c_surface = CSurface.from_text(interface_cfg["pause"], font, color, heigth=2)
-                world.add_component(entity, c_surface)
+                c_surface = world.component_for_entity(entity, CSurface)
+                # change the alpha value of the surface to 128
+                c_surface.surf.set_alpha(255)
 
-                # pause the game by stopping all velocity and storing them on CTagPause
+                # pause the game by stopping all velocity and storing them on CPause
                 moving_entities = world.get_components(CTransform, CVelocity)
                 for entity, (c_transform, c_velocity) in moving_entities:
                     c_tag.speeds[entity] = c_velocity.vel
@@ -40,21 +39,18 @@ def system_pause(world: esper.World, interface_cfg: dict, player_entity: int, in
 
         elif c_input.name == "PAUSE" and c_input.phase == CommandPhase.END:
             # Play the sound
-            ServiceLocator.sounds_service.play(interface_info["unpause_sound"])
+            ServiceLocator.sounds_service.play(interface_cfg["unpause_sound"])
             # get the pause entity with the tag and remove the surface component
-            component = world.get_component(CTagPause)
+            component = world.get_component(CPause)
             for entity, c_tag in component:
-                world.remove_component(entity, CSurface)
+                c_surface = world.component_for_entity(entity, CSurface)
+                # change the alpha value of the surface to 0
+                c_surface.surf.set_alpha(0)
 
-                # unpause the game by restoring all velocity from CTagPause
+                # unpause the game by restoring all velocity from CPause
                 moving_entities = world.get_components(CTransform, CVelocity)
                 for entity, (c_transform, c_velocity) in moving_entities:
                     c_velocity.vel = c_tag.speeds[entity]
                     del c_tag.speeds[entity]
-
-
-
-
-
 
 

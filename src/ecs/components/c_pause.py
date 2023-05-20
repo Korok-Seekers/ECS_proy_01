@@ -1,0 +1,7 @@
+
+class CPause:
+    def __init__(self, blink_rate=0.5):
+        self.speeds = {}
+        self.blink_rate = blink_rate
+        self.blink_timer = 0.0
+        self.blink_on = True

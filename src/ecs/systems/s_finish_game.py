@@ -1,7 +1,7 @@
 import esper
 import pygame
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
-from src.ecs.components.tags.c_tag_enemy import CTagEnemy
+from src.ecs.components.tags.c_tag_enemy import CEnemy
 
 def system_finish_game(world: esper.World, screen: pygame.Surface) -> None:
     """System that finishes the game when all enemies are destroyed"""

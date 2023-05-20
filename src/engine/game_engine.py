@@ -10,6 +10,7 @@ from src.ecs.systems.s_collision_enemy_bullet import system_collision_enemy_bull
 
 from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_input_player import system_input_player
+from src.ecs.systems.s_pause_blink import system_pause_blink
 from src.ecs.systems.s_movement import system_movement
 from src.ecs.systems.s_rendering import system_rendering
 from src.ecs.systems.s_pause import system_pause
@@ -19,7 +20,6 @@ from src.ecs.systems.s_screen_bullet import system_screen_bullet
 
 from src.ecs.systems.s_player_state import system_player_state
 from src.ecs.systems.s_explosion_kill import system_explosion_kill
-from src.ecs.systems.s_enemy_hunter_state import system_enemy_hunter_state
 
 from src.ecs.components.c_velocity import CVelocity
 from src.ecs.components.c_transform import CTransform
@@ -141,9 +141,12 @@ class GameEngine:
         self.num_bullets = len(self.ecs_world.get_component(CTagBullet))
         self.num_stars = len(self.ecs_world.get_component(CStar))
 
+        # print coords of the mouse
+        # print(pygame.mouse.get_pos())
 
     def _draw(self):
         self.screen.fill(self.bg_color)
+        system_pause_blink(self.ecs_world, self.delta_time, self.is_paused)
         system_rendering(self.ecs_world, self.screen)
         pygame.display.flip()
 
@@ -183,5 +186,5 @@ class GameEngine:
                 self.was_paused_up = True
                 self.was_paused_rigth = True
                 self.was_paused_left = True
-            system_pause(self.ecs_world, self.interface_cfg, self._player_entity, self.interface_cfg)
+            system_pause(self.ecs_world, self.interface_cfg, self._player_entity)
 
