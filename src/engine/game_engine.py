@@ -162,7 +162,7 @@ class GameEngine:
                 else:
                     self._player_c_v.vel.x -= self.player_cfg["input_velocity"]
 
-        if c_input.name == "PLAYER_FIRE" and self.num_bullets < self.level_01_cfg["player_spawn"]["max_bullets"]:
+        if c_input.name == "PLAYER_FIRE" and self.num_bullets < self.level_01_cfg["player_spawn"]["max_bullets"] and self.is_paused == False:
             create_bullet(self.ecs_world, self._player_c_t.pos,
                             self._player_c_s.area.size, self.player_bullet_cfg)
 
