@@ -7,6 +7,7 @@ from src.ecs.systems.s_animation import system_animation
 
 from src.ecs.systems.s_collision_player_enemy import system_collision_player_enemy
 from src.ecs.systems.s_collision_enemy_bullet import system_collision_enemy_bullet
+from src.ecs.systems.s_enemy_movement import system_enemy_movement
 
 from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_input_player import system_input_player
@@ -54,7 +55,7 @@ class GameEngine:
                                      self.window_cfg["bg_color"]["g"],
                                      self.window_cfg["bg_color"]["b"])
         self.ecs_world = esper.World()
-
+        self.timer = 2
         self.num_bullets = 0
         self.num_stars = 0
 
@@ -106,6 +107,7 @@ class GameEngine:
     def _calculate_time(self):
         self.clock.tick(self.framerate)
         self.delta_time = self.clock.get_time() / 1000.0
+        self.timer += self.delta_time
 
     def _process_events(self):
         for event in pygame.event.get():
@@ -123,7 +125,7 @@ class GameEngine:
     def _update(self):
         system_enemy_spawner(self.ecs_world, self.enemies_cfg, self.delta_time)
         system_movement(self.ecs_world, self.delta_time)
-
+        self.timer = system_enemy_movement(self.ecs_world, self.timer)
         # system_screen_bounce(self.ecs_world, self.screen)
         system_screen_player(self.ecs_world, self.screen)
         system_screen_bullet(self.ecs_world, self.screen)

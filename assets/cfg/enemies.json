@@ -1,5 +1,6 @@
 {
     "Invader1": {
+        "velocity": 10,
         "score": 30,
         "image": "assets/img/invaders_enemy_01.png",
         "animations": {
@@ -21,6 +22,7 @@
         }
     },
     "Invader2": {
+        "velocity": 10,
         "score": 40,
         "image": "assets/img/invaders_enemy_02.png",
         "animations": {
@@ -42,6 +44,7 @@
         }
     },
     "Invader3": {
+        "velocity": 10,
         "score": 50,
         "image": "assets/img/invaders_enemy_03.png",
         "animations": {
@@ -63,6 +66,7 @@
         }
     },
     "Invader4": {
+        "velocity": 10,
         "score": 60,
         "image": "assets/img/invaders_enemy_04.png"
     }

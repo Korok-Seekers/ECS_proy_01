@@ -54,14 +54,14 @@ def create_enemy_square(world: esper.World, pos: pygame.Vector2, enemy_info: dic
     # vel_range = random.randrange(vel_min, vel_max)
     # velocity = pygame.Vector2(random.choice([-vel_range, vel_range]),
     #                           random.choice([-vel_range, vel_range]))
-    enemy_entity = create_sprite(world, pos, pygame.Vector2(0,0), enemy_surface)
+    enemy_entity = create_sprite(world, pos, pygame.Vector2(enemy_info["velocity"], 0), enemy_surface)
     world.add_component(enemy_entity, CEnemy(enemy_info["score"]))
     # ServiceLocator.sounds_service.play(enemy_info["sound"])
 
 
 def create_enemy_animated(world: esper.World, pos: pygame.Vector2, enemy_info: dict):
     enemy_surface = ServiceLocator.images_service.get(enemy_info["image"])
-    velocity = pygame.Vector2(0, 0)
+    velocity = pygame.Vector2(enemy_info["velocity"], 0)
     enemy_entity = create_sprite(world, pos, velocity, enemy_surface)
     world.add_component(enemy_entity,
                         CAnimation(enemy_info["animations"]))
