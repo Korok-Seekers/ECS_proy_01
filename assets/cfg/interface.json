@@ -3,7 +3,7 @@
     "start_text": "READY",
     "start_text_color": [255, 0, 0],
     "start_text_size": 16,
-    "start_text_time": 2,
+    "start_text_time": 1.5,
 
     "font": "assets/fnt/PressStart2P.ttf",
     "common_color": [255, 255, 255],
@@ -36,6 +36,6 @@
     "game_over_color": [255, 0, 0],
     "game_over_size": 16,
     "game_over_sound": "assets/snd/game_over.ogg",
-    "game_over_time": 2
+    "game_over_time": 3
 
 }

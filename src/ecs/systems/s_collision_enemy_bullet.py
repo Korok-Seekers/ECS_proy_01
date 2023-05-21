@@ -2,15 +2,20 @@
 
 import esper
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
+from src.ecs.components.c_level import CLevel
+from src.ecs.components.c_lives import CLives
+from src.ecs.components.c_score import CScore
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
-from src.ecs.components.tags.c_tag_enemy import CEnemy
+from src.ecs.components.c_enemy import CEnemy
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
 from src.create.prefab_creator import create_explosion
 from src.ecs.systems.s_add_score import system_add_score
+from src.ecs.systems.s_restart_level import system_restart_level
+from src.ecs.systems.s_add_level import system_add_level
 
 
-def system_collision_enemy_bullet(world: esper.World, explosion_info: dict):
+def system_collision_enemy_bullet(world: esper.World, explosion_info: dict, level_cfg: dict, player_entity: int):
     components_enemy = world.get_components(CSurface, CTransform, CEnemy)
     components_bullet = world.get_components(CSurface, CTransform, CTagBullet)
     _, component_spawner = world.get_component(CEnemySpawner)[0]
@@ -28,3 +33,13 @@ def system_collision_enemy_bullet(world: esper.World, explosion_info: dict):
                 world.delete_entity(enemy_entity)
                 world.delete_entity(bullet_entity)
                 create_explosion(world, c_t.pos, explosion_info)
+
+                n_enemies = len(world.get_components(CEnemy))
+                print(n_enemies)
+
+                if n_enemies <= 1:
+                    system_restart_level(world, player_entity, level_cfg)
+                    system_add_level(world)
+
+
+

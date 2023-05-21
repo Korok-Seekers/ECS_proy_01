@@ -4,7 +4,7 @@ import esper
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
 from src.ecs.components.c_surface import CSurface
 from src.ecs.components.c_transform import CTransform
-from src.ecs.components.tags.c_tag_enemy import CEnemy
+from src.ecs.components.c_enemy import CEnemy
 from src.create.prefab_creator import create_explosion
 
 
