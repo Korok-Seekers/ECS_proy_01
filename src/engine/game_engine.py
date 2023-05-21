@@ -36,6 +36,7 @@ from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 from src.create.prefab_creator import create_enemy_spawner, create_input_player, create_player_square, create_bullet, create_interface_text
 from src.ecs.systems.s_starfield_blink import system_starfield_blink
 from src.ecs.systems.s_starfield_loop import system_starfield_loop
+from src.ecs.systems.system_clear_bullets import system_clear_bullets
 
 
 class GameEngine:
@@ -196,4 +197,7 @@ class GameEngine:
                 self.was_paused_rigth = True
                 self.was_paused_left = True
             system_pause(self.ecs_world, self.interface_cfg, self._player_entity)
+
+        if c_input.name == "SPECIAL_POWER":
+            system_clear_bullets(self.ecs_world)
 

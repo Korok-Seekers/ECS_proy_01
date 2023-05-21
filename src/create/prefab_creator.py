@@ -112,6 +112,10 @@ def create_input_player(world: esper.World):
     input_pause = world.create_entity()
     world.add_component(input_pause,
                         CInputCommand("PAUSE", pygame.K_p, True))
+    
+    special_power = world.create_entity()
+    world.add_component(special_power,
+                        CInputCommand("SPECIAL_POWER", pygame.K_x, True))
 
 
 def create_bullet(world: esper.World,
