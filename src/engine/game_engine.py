@@ -4,10 +4,12 @@ import pygame
 import esper
 from src.ecs.components.c_star import CStar
 from src.ecs.systems.s_animation import system_animation
+from src.ecs.systems.s_collision_player_bullet import system_collision_player_bullet
 
 from src.ecs.systems.s_collision_player_enemy import system_collision_player_enemy
 from src.ecs.systems.s_collision_enemy_bullet import system_collision_enemy_bullet
 from src.ecs.systems.s_enemy_movement import system_enemy_movement
+from src.ecs.systems.s_enemy_shoot import system_enemy_shoot
 
 from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_input_player import system_input_player
@@ -117,8 +119,6 @@ class GameEngine:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.is_running = False
-                if event.key == pygame.K_q:
-                    system_remove_life(self.ecs_world)
 
 
 
@@ -126,6 +126,8 @@ class GameEngine:
         system_enemy_spawner(self.ecs_world, self.enemies_cfg, self.delta_time)
         system_movement(self.ecs_world, self.delta_time)
         self.timer = system_enemy_movement(self.ecs_world, self.timer)
+        system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.level_01_cfg["enemy_spawn"], self.delta_time) 
+        system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg, self.player_explosion_cfg)
         # system_screen_bounce(self.ecs_world, self.screen)
         system_screen_player(self.ecs_world, self.screen)
         system_screen_bullet(self.ecs_world, self.screen)

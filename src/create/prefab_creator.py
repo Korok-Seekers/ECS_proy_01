@@ -17,6 +17,7 @@ from src.ecs.components.tags.c_tag_enemy import CEnemy
 from src.ecs.components.tags.c_tag_player import CTagPlayer
 from src.ecs.components.c_pause import CPause
 from src.ecs.components.tags.c_tag_bullet import CTagBullet
+from src.ecs.components.tags.c_tag_enemy_bullet import CTagEnemyBullet
 from src.ecs.components.tags.c_tag_explosion import CTagExplosion
 from src.ecs.components.c_animation import CAnimation
 from src.ecs.components.c_player_state import CPlayerState
@@ -55,7 +56,7 @@ def create_enemy_square(world: esper.World, pos: pygame.Vector2, enemy_info: dic
     # velocity = pygame.Vector2(random.choice([-vel_range, vel_range]),
     #                           random.choice([-vel_range, vel_range]))
     enemy_entity = create_sprite(world, pos, pygame.Vector2(enemy_info["velocity"], 0), enemy_surface)
-    world.add_component(enemy_entity, CEnemy(enemy_info["score"]))
+    world.add_component(enemy_entity, CEnemy(enemy_info["score"], enemy_info["cooldown_shot"], enemy_info["shot_probability"]))
     # ServiceLocator.sounds_service.play(enemy_info["sound"])
 
 
@@ -65,7 +66,7 @@ def create_enemy_animated(world: esper.World, pos: pygame.Vector2, enemy_info: d
     enemy_entity = create_sprite(world, pos, velocity, enemy_surface)
     world.add_component(enemy_entity,
                         CAnimation(enemy_info["animations"]))
-    world.add_component(enemy_entity, CEnemy(enemy_info["score"]))
+    world.add_component(enemy_entity, CEnemy(enemy_info["score"], enemy_info["cooldown_shot"], enemy_info["shot_probability"]))
 
 
 def create_player_square(world: esper.World, player_info: dict, player_lvl_info: dict) -> int:
@@ -126,6 +127,21 @@ def create_bullet(world: esper.World,
     bullet_entity = create_sprite(world, pos, vel, bullet_surface)
     world.add_component(bullet_entity, CTagBullet())
     ServiceLocator.sounds_service.play(bullet_info["sound"])
+
+def create_enemy_bullet(world: esper.World,
+                        enemy_pos: pygame.Vector2,
+                        enemy_size: pygame.Vector2,
+                        bullet_info: dict, 
+                        player_pos: pygame.Vector2):
+    bullet_surface = ServiceLocator.images_service.get(bullet_info["image"])
+    bullet_size = bullet_surface.get_rect().size
+    pos = pygame.Vector2(enemy_pos.x + (enemy_size[0] / 2) - (bullet_size[0] / 2),
+                            enemy_pos.y + (enemy_size[1] / 2) - (bullet_size[1] / 2))
+    vel = (player_pos - enemy_pos)
+    vel = vel.normalize() * bullet_info["velocity"]
+
+    bullet_entity = create_sprite(world, pos, vel, bullet_surface)
+    world.add_component(bullet_entity, CTagEnemyBullet())
 
 def create_multiple_bullets(world: esper.World,
                         mouse_pos: pygame.Vector2,
