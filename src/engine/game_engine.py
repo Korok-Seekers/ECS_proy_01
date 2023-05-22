@@ -15,17 +15,13 @@ from src.ecs.systems.s_enemy_spawner import system_enemy_spawner
 from src.ecs.systems.s_input_player import system_input_player
 from src.ecs.systems.s_pause_blink import system_pause_blink
 from src.ecs.systems.s_movement import system_movement
-from src.ecs.systems.s_remove_life import system_remove_life
 from src.ecs.systems.s_remove_temp_text import system_remove_temp_text
 from src.ecs.systems.s_rendering import system_rendering
 from src.ecs.systems.s_pause import system_pause
 from src.ecs.systems.s_restart_game import system_restart_game
-from src.ecs.systems.s_restart_level import system_restart_level
-from src.ecs.systems.s_screen_bounce import system_screen_bounce
 from src.ecs.systems.s_screen_player import system_screen_player
 from src.ecs.systems.s_screen_bullet import system_screen_bullet
 
-from src.ecs.systems.s_player_state import system_player_state
 from src.ecs.systems.s_explosion_kill import system_explosion_kill
 
 from src.ecs.components.c_velocity import CVelocity
@@ -131,7 +127,7 @@ class GameEngine:
         system_movement(self.ecs_world, self.delta_time)
         self.timer += self.delta_time
         self.timer = system_enemy_movement(self.ecs_world, self.timer)
-        
+
         system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.delta_time)
         system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg, self.player_explosion_cfg, self.interface_cfg, self.screen)
         # system_screen_bounce(self.ecs_world, self.screen)
@@ -144,7 +140,6 @@ class GameEngine:
 
         system_explosion_kill(self.ecs_world)
 
-        system_player_state(self.ecs_world)
         # system_enemy_hunter_state(self.ecs_world, self._player_entity, self.enemies_cfg["Hunter"])
 
         system_animation(self.ecs_world, self.delta_time)
