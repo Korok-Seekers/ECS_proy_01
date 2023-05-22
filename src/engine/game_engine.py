@@ -53,7 +53,7 @@ class GameEngine:
         self.is_running = False
         self.is_paused = False
         self.framerate = self.window_cfg["framerate"]
-        self.sp_timer = self.player_cfg["power_cooldown"]
+        self.sp_timer = self.interface_cfg["cooldown_time"]
         self.delta_time = 0
         self.bg_color = pygame.Color(self.window_cfg["bg_color"]["r"],
                                      self.window_cfg["bg_color"]["g"],
@@ -126,7 +126,7 @@ class GameEngine:
                     system_restart_game(self.ecs_world, self._player_entity, self.level_01_cfg, self.interface_cfg, self.screen)
                     self.ecs_world.delete_entity(self.restart_text)
                     self.game_over_status = False
-                    self.sp_timer = self.player_cfg["power_cooldown"]
+                    self.sp_timer = self.interface_cfg["cooldown_time"]
 
     def _update(self):
         system_enemy_spawner(self.ecs_world, self.enemies_cfg, self.delta_time)
@@ -170,7 +170,7 @@ class GameEngine:
         self.num_stars = len(self.ecs_world.get_component(CStar))
 
         # print coords of the mouse
-        print(pygame.mouse.get_pos())
+        # print(pygame.mouse.get_pos())
 
     def _draw(self):
         self.screen.fill(self.bg_color)
@@ -218,8 +218,9 @@ class GameEngine:
             system_pause(self.ecs_world, self.interface_cfg, self._player_entity)
 
         if c_input.name == "SPECIAL_POWER":
-            print(self.sp_timer)
+            # print(self.sp_timer)
             if self.sp_timer == 0:
+                ServiceLocator.sounds_service.play(self.player_cfg["power_sound"])
                 system_clear_bullets(self.ecs_world)
-                self.sp_timer = self.player_cfg["power_cooldown"]
+                self.sp_timer = self.interface_cfg["cooldown_time"]
 

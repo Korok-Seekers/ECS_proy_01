@@ -12,14 +12,15 @@ def system_show_cooldown(world: esper.World, cooldown: float, interface_info: di
 
     for entity, (c_cd, c_s, c_tt) in components:
         c_cd.curren_cooldown = round(cooldown)
+        total = c_cd.max_cooldown
 
         world.remove_component(entity, CSurface)
 
         # create new surface
         font = ServiceLocator.fonts_service.get("common")
         color = pygame.Color(interface_info["cooldown_color"][0], interface_info["cooldown_color"][1], interface_info["cooldown_color"][2])
-        g_value = int(color.g * (cooldown / 6))
-        b_value = int(color.b * (cooldown / 6))
+        g_value = int(color.g * (cooldown / total))
+        b_value = int(color.b * (cooldown / total))
         color.g = g_value
         color.b = b_value
 

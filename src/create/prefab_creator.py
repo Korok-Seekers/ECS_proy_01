@@ -249,7 +249,7 @@ def create_interface_text(world: esper.World, interface_info: dict, screen: pyga
 
     cooldown_pos = pygame.Vector2(interface_info["cooldown_pos"][0], interface_info["cooldown_pos"][1])
     cooldown_entity = world.create_entity()
-    world.add_component(cooldown_entity, CCooldown())
+    world.add_component(cooldown_entity, CCooldown(interface_info["cooldown_time"]))
     world.add_component(cooldown_entity, CTransform(cooldown_pos))
     world.add_component(cooldown_entity, CSurface.from_text("0", font, text_color, heigth=2))
     world.add_component(cooldown_entity, CTagText())
@@ -301,6 +301,6 @@ def create_restart_text(world: esper.World, interface_info: dict, screen: pygame
     world.add_component(restart_entity, CSurface.from_text(restart_text, restart_font, restart_color, heigth=2))
     world.add_component(restart_entity, CTransform(restart_pos))
     world.add_component(restart_entity, CTagText())
-    
+
 
     return restart_entity

@@ -26,7 +26,7 @@
         10,
         5
     ],
-    "high_score": 8260,
+    "high_score": 5000,
     "high_score_color": [
         30,
         144,
@@ -78,6 +78,7 @@
         10,
         220
     ],
+    "cooldown_time": 10.0,
     "cooldown_color": [
         255,
         255,

@@ -1,6 +1,5 @@
 {
     "image": "assets/img/invaders_char.png",
     "input_velocity": 80,
-    "power_sound": "assets/snd/special_power.ogg",
-    "power_cooldown": 6.0
+    "power_sound": "assets/snd/special_power.ogg"
 }
