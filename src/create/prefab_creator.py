@@ -2,6 +2,7 @@ import math
 import random
 import pygame
 import esper
+from src.ecs.components.c_cooldown import CCooldown
 
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
 from src.ecs.components.c_hiscore import CHiScore
@@ -222,7 +223,7 @@ def create_interface_text(world: esper.World, interface_info: dict, screen: pyga
     high_score_pos = pygame.Vector2(interface_info["high_score_pos"][0], interface_info["high_score_pos"][1])
     high_score_color_info = interface_info["high_score_color"]
     high_score_color = pygame.Color(high_score_color_info[0], high_score_color_info[1], high_score_color_info[2])
-    world.add_component(high_score_entity, CSurface.from_text(high_score_text, font, high_score_color, heigth=2))
+    world.add_component(high_score_entity, CSurface.from_text(str(high_score_text), font, high_score_color, heigth=2))
     world.add_component(high_score_entity, CTransform(high_score_pos))
     world.add_component(high_score_entity, CHiScore(high_score_text))
     world.add_component(high_score_entity, CTagText())
@@ -245,6 +246,14 @@ def create_interface_text(world: esper.World, interface_info: dict, screen: pyga
     world.add_component(level_entity, CTransform(level_pos))
     world.add_component(level_entity, CTagText())
 
+
+    cooldown_pos = pygame.Vector2(interface_info["cooldown_pos"][0], interface_info["cooldown_pos"][1])
+    cooldown_entity = world.create_entity()
+    world.add_component(cooldown_entity, CCooldown())
+    world.add_component(cooldown_entity, CTransform(cooldown_pos))
+    world.add_component(cooldown_entity, CSurface.from_text("0", font, text_color, heigth=2))
+    world.add_component(cooldown_entity, CTagText())
+
     font = ServiceLocator.fonts_service.get("pause")
     pause_text = interface_info["pause"]
     pause_pos = pygame.Vector2(screen.get_width() / 2 - font.size(pause_text)[0] / 2, screen.get_height() / 2 - font.size(pause_text)[1] / 2)
@@ -257,6 +266,7 @@ def create_interface_text(world: esper.World, interface_info: dict, screen: pyga
     c_surface = world.component_for_entity(pause_entity, CSurface)
     c_surface.surf.set_alpha(0)
     world.add_component(pause_entity, CTagText())
+
 
 
 def create_start_text(world: esper.World, interface_info: dict, screen: pygame.Surface):
@@ -280,7 +290,7 @@ def create_game_over_text(world: esper.World, interface_info: dict, screen: pyga
     world.add_component(game_over_entity, CSurface.from_text(game_over_text, game_over_font, game_over_color, heigth=2))
     world.add_component(game_over_entity, CTransform(game_over_pos))
     world.add_component(game_over_entity, CTempText(interface_info["game_over_time"]))
-    
+
 def create_restart_text(world: esper.World, interface_info: dict, screen: pygame.Surface):
     restart_text = interface_info["restart"]
     restart_color_info = interface_info["restart_color"]
@@ -290,5 +300,7 @@ def create_restart_text(world: esper.World, interface_info: dict, screen: pygame
     restart_entity = world.create_entity()
     world.add_component(restart_entity, CSurface.from_text(restart_text, restart_font, restart_color, heigth=2))
     world.add_component(restart_entity, CTransform(restart_pos))
+    world.add_component(restart_entity, CTagText())
     
+
     return restart_entity

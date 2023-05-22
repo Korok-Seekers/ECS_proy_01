@@ -1,23 +1,32 @@
 import esper
 import pygame
 
-from src.ecs.components.c_player_weapon import CPlayerWeapon
+from src.ecs.components.c_cooldown import CCooldown
+from src.ecs.components.c_surface import CSurface
+from src.ecs.components.tags.c_tag_text import CTagText
+from src.engine.service_locator import ServiceLocator
 
-def system_show_cooldown(screen: pygame.Surface, world: esper.World, cooldown: float):
 
-    c_pw = world.component_for_entity(1, CPlayerWeapon)
+def system_show_cooldown(world: esper.World, cooldown: float, interface_info: dict):
+    components = world.get_components(CCooldown, CSurface, CTagText)
 
-    """Show cooldown of player weapon"""
-    if cooldown > 0.0:
-        # Show cooldown
-        font = pygame.font.SysFont("Arial", 12)
-        text = font.render(f"Cooldown for triple shot: {cooldown:.2f} - Current Weapon: {c_pw.weapon}", True, (255, 255, 255))
-        screen.blit(text, (0, 0))
+    for entity, (c_cd, c_s, c_tt) in components:
+        c_cd.curren_cooldown = round(cooldown)
 
-    else:
-        # Show the same info but cooldown on 0s
-        font = pygame.font.SysFont("Arial", 12)
-        text = font.render(f"Cooldown for triple shot: {0.0:.2f} - Current Weapon: {c_pw.weapon}", True, (255, 255, 255))
-        screen.blit(text, (0, 0))
+        world.remove_component(entity, CSurface)
 
-    
+        # create new surface
+        font = ServiceLocator.fonts_service.get("common")
+        color = pygame.Color(interface_info["cooldown_color"][0], interface_info["cooldown_color"][1], interface_info["cooldown_color"][2])
+        g_value = int(color.g * (cooldown / 6))
+        b_value = int(color.b * (cooldown / 6))
+        color.g = g_value
+        color.b = b_value
+
+
+        world.add_component(entity, CSurface.from_text(str(c_cd.curren_cooldown), font, color))
+
+
+
+
+

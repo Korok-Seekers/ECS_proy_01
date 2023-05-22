@@ -1,44 +1,86 @@
 {
     "start_sound": "assets/snd/game_start.ogg",
     "start_text": "READY",
-    "start_text_color": [255, 0, 0],
+    "start_text_color": [
+        255,
+        255,
+        0
+    ],
     "start_text_size": 16,
     "start_text_time": 1.5,
-
     "font": "assets/fnt/PressStart2P.ttf",
-    "common_color": [255, 255, 255],
+    "common_color": [
+        255,
+        255,
+        255
+    ],
     "common_size": 8,
-
-    "title": "1-UP   HI-SCORE",
-    "title_color": [255, 0, 0],
+    "title": "1-UP   HI-SCORE  LIVES  LEVEL",
+    "title_color": [
+        255,
+        0,
+        0
+    ],
     "title_size": 8,
-    "title_pos": [25, 5],
-
-    "high_score": "5000",
-    "high_score_color": [30, 144, 255],
+    "title_pos": [
+        10,
+        5
+    ],
+    "high_score": 8260,
+    "high_score_color": [
+        30,
+        144,
+        255
+    ],
     "high_score_size": 8,
-    "high_score_pos": [81, 15],
-
-    "score_pos": [25, 15],
-
-    "lives_pos": [165, 15],
-
-    "level_pos": [200, 15],
-
+    "high_score_pos": [
+        66,
+        15
+    ],
+    "score_pos": [
+        11,
+        15
+    ],
+    "lives_pos": [
+        147,
+        15
+    ],
+    "level_pos": [
+        202,
+        15
+    ],
     "pause": "PAUSED",
-    "pause_color": [0, 187, 255],
+    "pause_color": [
+        0,
+        187,
+        255
+    ],
     "pause_size": 16,
-
     "pause_sound": "assets/snd/game_paused.ogg",
     "unpause_sound": "assets/snd/game_unpaused.ogg",
-
     "game_over": "GAME OVER",
-    "game_over_color": [255, 0, 0],
+    "game_over_color": [
+        255,
+        0,
+        0
+    ],
     "game_over_size": 16,
     "game_over_sound": "assets/snd/game_over.ogg",
     "game_over_time": 3,
-
     "restart": "PRESS 1 TO RESTART",
-    "restart_color": [255, 0, 0],
-    "restart_size": 8
+    "restart_color": [
+        255,
+        0,
+        0
+    ],
+    "restart_size": 8,
+    "cooldown_pos": [
+        10,
+        220
+    ],
+    "cooldown_color": [
+        255,
+        255,
+        255
+    ]
 }

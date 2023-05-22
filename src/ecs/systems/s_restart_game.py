@@ -8,7 +8,7 @@ from src.ecs.systems.s_restart_level import system_restart_level
 
 
 def system_restart_game(world:esper.World, player_entity:int, level_cfg:dict, interface_info:dict, screen: pygame.Surface):
-    system_restart_level(world, player_entity, level_cfg)
+    system_restart_level(world, player_entity, level_cfg, screen, interface_info)
 
     text_components = world.get_components(CTagText, CSurface)
     for entity, (c_t, _) in text_components:

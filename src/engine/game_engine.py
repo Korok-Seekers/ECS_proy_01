@@ -32,9 +32,11 @@ from src.ecs.components.tags.c_tag_bullet import CTagBullet
 from src.ecs.components.c_input_command import CInputCommand, CommandPhase
 
 from src.create.prefab_creator import create_enemy_spawner, create_input_player, create_player_square, create_bullet, create_interface_text
+from src.ecs.systems.s_show_cooldown import system_show_cooldown
 from src.ecs.systems.s_starfield_blink import system_starfield_blink
 from src.ecs.systems.s_starfield_loop import system_starfield_loop
 from src.ecs.systems.system_clear_bullets import system_clear_bullets
+from src.engine.service_locator import ServiceLocator
 
 
 class GameEngine:
@@ -51,7 +53,7 @@ class GameEngine:
         self.is_running = False
         self.is_paused = False
         self.framerate = self.window_cfg["framerate"]
-        self.sp_timer = 0
+        self.sp_timer = self.player_cfg["power_cooldown"]
         self.delta_time = 0
         self.bg_color = pygame.Color(self.window_cfg["bg_color"]["r"],
                                      self.window_cfg["bg_color"]["g"],
@@ -124,6 +126,7 @@ class GameEngine:
                     system_restart_game(self.ecs_world, self._player_entity, self.level_01_cfg, self.interface_cfg, self.screen)
                     self.ecs_world.delete_entity(self.restart_text)
                     self.game_over_status = False
+                    self.sp_timer = self.player_cfg["power_cooldown"]
 
     def _update(self):
         system_enemy_spawner(self.ecs_world, self.enemies_cfg, self.delta_time)
@@ -132,14 +135,19 @@ class GameEngine:
         self.timer = system_enemy_movement(self.ecs_world, self.timer)
 
         system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.delta_time)
-        self.game_over_status, self.restart_text= system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg,
+        self.game_over_status, self.restart_text = system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg,
                                                                self.player_explosion_cfg, self.interface_cfg, self.screen,
                                                                self.game_over_status, self.restart_text)
+
+        if self.game_over_status == True:
+            with open("assets/cfg/interface.json", encoding="utf-8") as interface_file:
+                self.interface_cfg = json.load(interface_file)
+
         # system_screen_bounce(self.ecs_world, self.screen)
         system_screen_player(self.ecs_world, self.screen)
         system_screen_bullet(self.ecs_world, self.screen)
 
-        system_collision_enemy_bullet(self.ecs_world, self.enemy_explosion_cfg, self.level_01_cfg, self._player_entity)
+        system_collision_enemy_bullet(self.ecs_world, self.enemy_explosion_cfg, self.level_01_cfg, self._player_entity, self.screen, self.interface_cfg)
         system_collision_player_enemy(self.ecs_world, self._player_entity,
                                         self.level_01_cfg, self.enemy_explosion_cfg)
 
@@ -150,13 +158,19 @@ class GameEngine:
         system_animation(self.ecs_world, self.delta_time)
         system_starfield_blink(self.ecs_world, self.delta_time)
         system_starfield_loop(self.ecs_world, self.starfield_cfg, self.screen, self.num_stars)
+        system_show_cooldown(self.ecs_world, self.sp_timer, self.interface_cfg)
+        if self.sp_timer > 0:
+            self.sp_timer -= self.delta_time
+            self.sp_timer = round(self.sp_timer, 2)
+        else:
+            self.sp_timer = 0
 
         self.ecs_world._clear_dead_entities()
         self.num_bullets = len(self.ecs_world.get_component(CTagBullet))
         self.num_stars = len(self.ecs_world.get_component(CStar))
 
         # print coords of the mouse
-        # print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
 
     def _draw(self):
         self.screen.fill(self.bg_color)
@@ -204,8 +218,8 @@ class GameEngine:
             system_pause(self.ecs_world, self.interface_cfg, self._player_entity)
 
         if c_input.name == "SPECIAL_POWER":
-            actual_time = pygame.time.get_ticks()
-            if self.sp_timer <= actual_time - 6000:
+            print(self.sp_timer)
+            if self.sp_timer == 0:
                 system_clear_bullets(self.ecs_world)
-                self.sp_timer = actual_time
+                self.sp_timer = self.player_cfg["power_cooldown"]
 

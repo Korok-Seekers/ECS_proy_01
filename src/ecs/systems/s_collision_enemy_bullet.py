@@ -1,6 +1,7 @@
 
 
 import esper
+import pygame
 from src.ecs.components.c_enemy_spawner import CEnemySpawner
 from src.ecs.components.c_level import CLevel
 from src.ecs.components.c_lives import CLives
@@ -15,7 +16,7 @@ from src.ecs.systems.s_restart_level import system_restart_level
 from src.ecs.systems.s_add_level import system_add_level
 
 
-def system_collision_enemy_bullet(world: esper.World, explosion_info: dict, level_cfg: dict, player_entity: int):
+def system_collision_enemy_bullet(world: esper.World, explosion_info: dict, level_cfg: dict, player_entity: int, screen: pygame.Surface, interface_info: dict):
     components_enemy = world.get_components(CSurface, CTransform, CEnemy)
     components_bullet = world.get_components(CSurface, CTransform, CTagBullet)
     _, component_spawner = world.get_component(CEnemySpawner)[0]
@@ -37,7 +38,7 @@ def system_collision_enemy_bullet(world: esper.World, explosion_info: dict, leve
                 n_enemies = len(world.get_components(CEnemy))
 
                 if n_enemies <= 1:
-                    system_restart_level(world, player_entity, level_cfg)
+                    system_restart_level(world, player_entity, level_cfg, screen, interface_info)
                     system_add_level(world)
 
 
