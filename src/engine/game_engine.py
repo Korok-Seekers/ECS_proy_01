@@ -51,6 +51,7 @@ class GameEngine:
         self.is_running = False
         self.is_paused = False
         self.framerate = self.window_cfg["framerate"]
+        self.sp_timer = 0
         self.delta_time = 0
         self.bg_color = pygame.Color(self.window_cfg["bg_color"]["r"],
                                      self.window_cfg["bg_color"]["g"],
@@ -59,6 +60,8 @@ class GameEngine:
         self.timer = 2
         self.num_bullets = 0
         self.num_stars = 0
+        self.game_over_status = False
+        self.move_flag = False
 
     def _load_config_files(self):
         with open("assets/cfg/window.json", encoding="utf-8") as window_file:
@@ -117,10 +120,10 @@ class GameEngine:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.is_running = False
-                if event.key == pygame.K_1:
+                if event.key == pygame.K_1 and self.game_over_status == True:
                     system_restart_game(self.ecs_world, self._player_entity, self.level_01_cfg, self.interface_cfg, self.screen)
-
-
+                    self.move_flag = True
+                    self.game_over_status = False
 
     def _update(self):
         system_enemy_spawner(self.ecs_world, self.enemies_cfg, self.delta_time)
@@ -129,7 +132,9 @@ class GameEngine:
         self.timer = system_enemy_movement(self.ecs_world, self.timer)
 
         system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.delta_time)
-        system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg, self.player_explosion_cfg, self.interface_cfg, self.screen)
+        self.game_over_status = system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg,
+                                                               self.player_explosion_cfg, self.interface_cfg,
+                                                               self.screen, self.game_over_status)
         # system_screen_bounce(self.ecs_world, self.screen)
         system_screen_player(self.ecs_world, self.screen)
         system_screen_bullet(self.ecs_world, self.screen)
@@ -173,6 +178,8 @@ class GameEngine:
             elif c_input.phase == CommandPhase.END:
                 if self.was_paused_left:
                     self.was_paused_left = False
+                elif self.move_flag == True:
+                    self.move_flag = False
                 else:
                     self._player_c_v.vel.x += self.player_cfg["input_velocity"]
         if c_input.name == "PLAYER_RIGHT":
@@ -182,6 +189,8 @@ class GameEngine:
             elif c_input.phase == CommandPhase.END:
                 if self.was_paused_rigth:
                     self.was_paused_rigth = False
+                elif self.move_flag == True:
+                    self.move_flag = False
                 else:
                     self._player_c_v.vel.x -= self.player_cfg["input_velocity"]
 
@@ -199,5 +208,8 @@ class GameEngine:
             system_pause(self.ecs_world, self.interface_cfg, self._player_entity)
 
         if c_input.name == "SPECIAL_POWER":
-            system_clear_bullets(self.ecs_world)
+            actual_time = pygame.time.get_ticks()
+            if self.sp_timer <= actual_time - 6000:
+                system_clear_bullets(self.ecs_world)
+                self.sp_timer = actual_time
 

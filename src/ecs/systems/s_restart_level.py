@@ -6,10 +6,10 @@ from src.ecs.components.c_enemy_spawner import CEnemySpawner
 from src.ecs.components.c_lives import CLives
 from src.ecs.components.c_score import CScore
 from src.ecs.components.c_surface import CSurface
+from src.ecs.components.c_velocity import CVelocity
 
 def system_restart_level(world: esper.World, player_entity: int, level_cfg: dict):
     enemy_spawner = world.get_components(CEnemySpawner)[0][0]
-    print(enemy_spawner)
 
     world.delete_entity(enemy_spawner)
 

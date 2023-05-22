@@ -1,4 +1,4 @@
 {
-    "image": "assets/img/player_bullet.png",
-    "velocity": 120
+    "image": "assets/img/enemy_bullet.png",
+    "velocity": 100
 }
