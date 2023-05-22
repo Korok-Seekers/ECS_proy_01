@@ -7,7 +7,7 @@ from src.ecs.components.c_transform import CTransform
 from src.ecs.components.c_enemy import CEnemy
 from src.ecs.components.tags.c_tag_player import CTagPlayer
 
-def system_enemy_shoot(world: esper.World, bullet_info: dict, enemy_info: dict, delta_time: float) -> None:
+def system_enemy_shoot(world: esper.World, bullet_info: dict, delta_time: float) -> None:
     player_components = world.get_components(CTransform, CTagPlayer)
     enemy_components = world.get_components(CTransform, CSurface, CEnemy)
 
