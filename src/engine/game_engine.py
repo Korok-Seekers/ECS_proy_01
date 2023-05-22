@@ -112,7 +112,6 @@ class GameEngine:
     def _calculate_time(self):
         self.clock.tick(self.framerate)
         self.delta_time = self.clock.get_time() / 1000.0
-        self.timer += self.delta_time
 
     def _process_events(self):
         for event in pygame.event.get():
@@ -130,8 +129,10 @@ class GameEngine:
     def _update(self):
         system_enemy_spawner(self.ecs_world, self.enemies_cfg, self.delta_time)
         system_movement(self.ecs_world, self.delta_time)
+        self.timer += self.delta_time
         self.timer = system_enemy_movement(self.ecs_world, self.timer)
-        system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.level_01_cfg["enemy_spawn"], self.delta_time)
+        
+        system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.delta_time)
         system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg, self.player_explosion_cfg, self.interface_cfg, self.screen)
         # system_screen_bounce(self.ecs_world, self.screen)
         system_screen_player(self.ecs_world, self.screen)

@@ -14,9 +14,7 @@ def system_enemy_movement(world: esper.World, timer:float):
         c_v: CVelocity
         c_e: CEnemy
         for _, (c_t, c_v, c_e) in components:
-
-            if timer > 1:
-                c_v.vel.x *= -1
+            c_v.vel.x *= -1
 
         timer = 0
     return timer
