@@ -4,7 +4,7 @@
             "x": 120,
             "y": 200
         },
-        "max_bullets": 100
+        "max_bullets": 1
     },
     "enemy_spawn": [
         {

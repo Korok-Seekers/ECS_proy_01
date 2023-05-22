@@ -35,7 +35,6 @@ def system_collision_enemy_bullet(world: esper.World, explosion_info: dict, leve
                 create_explosion(world, c_t.pos, explosion_info)
 
                 n_enemies = len(world.get_components(CEnemy))
-                print(n_enemies)
 
                 if n_enemies <= 1:
                     system_restart_level(world, player_entity, level_cfg)
