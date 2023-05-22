@@ -217,7 +217,7 @@ class GameEngine:
                 self.was_paused_left = True
             system_pause(self.ecs_world, self.interface_cfg, self._player_entity)
 
-        if c_input.name == "SPECIAL_POWER":
+        if c_input.name == "SPECIAL_POWER" and self.is_paused == False:
             # print(self.sp_timer)
             if self.sp_timer == 0:
                 ServiceLocator.sounds_service.play(self.player_cfg["power_sound"])
