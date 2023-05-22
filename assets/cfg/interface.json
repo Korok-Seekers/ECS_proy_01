@@ -36,6 +36,9 @@
     "game_over_color": [255, 0, 0],
     "game_over_size": 16,
     "game_over_sound": "assets/snd/game_over.ogg",
-    "game_over_time": 3
+    "game_over_time": 3,
 
+    "restart": "PRESS 1 TO RESTART",
+    "restart_color": [255, 0, 0],
+    "restart_size": 8
 }

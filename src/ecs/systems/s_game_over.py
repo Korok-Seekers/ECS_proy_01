@@ -2,7 +2,7 @@
 
 import esper
 import pygame
-from src.create.prefab_creator import create_game_over_text
+from src.create.prefab_creator import create_game_over_text, create_restart_text
 from src.ecs.components.c_input_command import CInputCommand
 
 from src.ecs.components.c_surface import CSurface
@@ -27,7 +27,10 @@ def system_game_over(world: esper.World, interface_cfg: dict, screen: pygame.Sur
 
     # create game over text
     create_game_over_text(world, interface_cfg, screen)
+    restart_id = create_restart_text(world, interface_cfg, screen)
 
     ServiceLocator.sounds_service.play(interface_cfg["game_over_sound"])
+    
+    return restart_id
 
     

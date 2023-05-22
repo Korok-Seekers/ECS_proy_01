@@ -12,8 +12,9 @@ from src.ecs.systems.system_clear_bullets import system_clear_bullets
 
 
 def system_collision_player_bullet(world: esper.World, player_entity: int,
-                                   level_cfg: dict, explosion_info: dict, interface_cfg: dict,
-                                   screen: pygame.Surface, game_over_status: bool):
+                                   level_cfg: dict, explosion_info: dict, interface_cfg: dict, 
+                                   screen: pygame.Surface, game_over_status: bool, 
+                                   restart_id: int):
     components = world.get_components(CSurface, CTransform, CTagEnemyBullet)
     pl_t = world.component_for_entity(player_entity, CTransform)
     pl_s = world.component_for_entity(player_entity, CSurface)
@@ -36,10 +37,10 @@ def system_collision_player_bullet(world: esper.World, player_entity: int,
 
             c_lives = world.get_components(CLives)[0][1][0]
             if c_lives.lives < 0:
-                system_game_over(world, interface_cfg, screen, player_entity)
+                restart_id = system_game_over(world, interface_cfg, screen, player_entity)
                 game_over_status = True
             else:
                 create_start_text(world, interface_cfg, screen)
                 game_over_status = False
                 
-    return game_over_status
+    return game_over_status, restart_id

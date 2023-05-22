@@ -60,8 +60,8 @@ class GameEngine:
         self.timer = 2
         self.num_bullets = 0
         self.num_stars = 0
+        self.restart_text = 0
         self.game_over_status = False
-        self.move_flag = False
 
     def _load_config_files(self):
         with open("assets/cfg/window.json", encoding="utf-8") as window_file:
@@ -122,7 +122,7 @@ class GameEngine:
                     self.is_running = False
                 if event.key == pygame.K_1 and self.game_over_status == True:
                     system_restart_game(self.ecs_world, self._player_entity, self.level_01_cfg, self.interface_cfg, self.screen)
-                    self.move_flag = True
+                    self.ecs_world.delete_entity(self.restart_text)
                     self.game_over_status = False
 
     def _update(self):
@@ -132,9 +132,9 @@ class GameEngine:
         self.timer = system_enemy_movement(self.ecs_world, self.timer)
 
         system_enemy_shoot(self.ecs_world, self.enemy_bullet_cfg, self.delta_time)
-        self.game_over_status = system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg,
-                                                               self.player_explosion_cfg, self.interface_cfg,
-                                                               self.screen, self.game_over_status)
+        self.game_over_status, self.restart_text= system_collision_player_bullet(self.ecs_world, self._player_entity, self.level_01_cfg,
+                                                               self.player_explosion_cfg, self.interface_cfg, self.screen,
+                                                               self.game_over_status, self.restart_text)
         # system_screen_bounce(self.ecs_world, self.screen)
         system_screen_player(self.ecs_world, self.screen)
         system_screen_bullet(self.ecs_world, self.screen)
@@ -178,8 +178,6 @@ class GameEngine:
             elif c_input.phase == CommandPhase.END:
                 if self.was_paused_left:
                     self.was_paused_left = False
-                elif self.move_flag == True:
-                    self.move_flag = False
                 else:
                     self._player_c_v.vel.x += self.player_cfg["input_velocity"]
         if c_input.name == "PLAYER_RIGHT":
@@ -189,8 +187,6 @@ class GameEngine:
             elif c_input.phase == CommandPhase.END:
                 if self.was_paused_rigth:
                     self.was_paused_rigth = False
-                elif self.move_flag == True:
-                    self.move_flag = False
                 else:
                     self._player_c_v.vel.x -= self.player_cfg["input_velocity"]
 

@@ -280,4 +280,15 @@ def create_game_over_text(world: esper.World, interface_info: dict, screen: pyga
     world.add_component(game_over_entity, CSurface.from_text(game_over_text, game_over_font, game_over_color, heigth=2))
     world.add_component(game_over_entity, CTransform(game_over_pos))
     world.add_component(game_over_entity, CTempText(interface_info["game_over_time"]))
-
+    
+def create_restart_text(world: esper.World, interface_info: dict, screen: pygame.Surface):
+    restart_text = interface_info["restart"]
+    restart_color_info = interface_info["restart_color"]
+    restart_color = pygame.Color(restart_color_info[0], restart_color_info[1], restart_color_info[2])
+    restart_font = ServiceLocator.fonts_service.get("restart")
+    restart_pos = pygame.Vector2(screen.get_width() / 2 - restart_font.size(restart_text)[0] / 2, screen.get_height() / 1.6 - restart_font.size(restart_text)[1] / 2)
+    restart_entity = world.create_entity()
+    world.add_component(restart_entity, CSurface.from_text(restart_text, restart_font, restart_color, heigth=2))
+    world.add_component(restart_entity, CTransform(restart_pos))
+    
+    return restart_entity
